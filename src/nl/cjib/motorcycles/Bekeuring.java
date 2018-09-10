@@ -1,3 +1,5 @@
+package nl.cjib.motorcycles;
+
 public class Bekeuring {
     private String kenteken;
     private double bedrag;

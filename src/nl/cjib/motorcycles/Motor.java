@@ -8,7 +8,7 @@ public class Motor {
     private int pk;
     private int totalKM;
     private String fuel;
-    private String onderhoudstype;
+    private String onderhoudsType;
 
     public String getColour() {
         return this.colour;
@@ -42,11 +42,9 @@ public class Motor {
         this.fuel = fuel;
     }
 
-    public String getOnderhoudstype() {
-        return onderhoudstype;
-    }
+    public String getOnderhoudsType() { return onderhoudsType;}
 
-    public void setOnderhoudstype(OnderhoudstypeEnum onderhoudstypeEnum) {
-        this.onderhoudstype = onderhoudstypeEnum.name();
+    public void setOnderhoudsType(OnderhoudstypeEnum onderhoudstypeEnum) {
+        this.onderhoudsType = onderhoudstypeEnum.name();
     }
 }

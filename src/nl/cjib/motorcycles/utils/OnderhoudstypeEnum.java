@@ -1,13 +1,9 @@
 package nl.cjib.motorcycles.utils;
 
 public enum OnderhoudstypeEnum {
-    APK("APK"),
-    GROOT_ONDERHOUD("GROOT ONDERHOUD"),
-    KLEIN_ONDERHOUD("KLEIN ONDERHOUD");
-
-    OnderhoudstypeEnum(String onderhoudsType) {
-        this.onderhoudsType = onderhoudsType;
-    }
+    APK,
+    GROTE_BEURT,
+    KLEINE_BEURT;
 
     private String onderhoudsType;
 

@@ -1,11 +1,14 @@
 package nl.cjib.motorcycles;
 
+import nl.cjib.motorcycles.utils.OnderhoudstypeEnum;
+
 public class Motor {
 
     private String colour;
     private int pk;
     private int totalKM;
     private String fuel;
+    private String onderhoudstype;
 
     public String getColour() {
         return this.colour;
@@ -37,5 +40,13 @@ public class Motor {
 
     public void setFuel(String fuel) {
         this.fuel = fuel;
+    }
+
+    public String getOnderhoudstype() {
+        return onderhoudstype;
+    }
+
+    public void setOnderhoudstype(OnderhoudstypeEnum onderhoudstypeEnum) {
+        this.onderhoudstype = onderhoudstypeEnum.name();
     }
 }

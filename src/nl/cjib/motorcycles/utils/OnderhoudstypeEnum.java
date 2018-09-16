@@ -6,7 +6,6 @@ public enum OnderhoudstypeEnum {
     KLEINE_BEURT;
 
     private String onderhoudsType;
-
     public String getOnderhoudsType() {
         return onderhoudsType;
     }

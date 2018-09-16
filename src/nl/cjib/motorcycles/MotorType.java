@@ -1,6 +1,7 @@
 package nl.cjib.motorcycles;
 
 public class MotorType {
+    private int motorTypeId;
     private String type;
     private String brand;
     private String subBrand;
@@ -23,4 +24,6 @@ public class MotorType {
     public String getSubBrand(){
         return subBrand;
     }
+    public int getMotorTypeId() { return motorTypeId; }
+    public void setMotorTypeId(int motorTypeId) { this.motorTypeId = motorTypeId; }
 }

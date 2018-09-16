@@ -2,49 +2,41 @@ package nl.cjib.motorcycles;
 
 import nl.cjib.motorcycles.utils.OnderhoudstypeEnum;
 
-public class Motor {
+public class Motor extends Motorvoertuig {
 
     private String colour;
     private int pk;
     private int totalKM;
     private String fuel;
+    private MotorType motorType;
     private String onderhoudsType;
 
-    public String getColour() {
+    String getColour() {
         return this.colour;
     }
-
     public void setColour (String colour) {
         this.colour = colour;
     }
-
-    public int getPk () {
+    int getPk() {
         return this.pk;
     }
-
     public void setPk (int pk) {
         this.pk = pk;
     }
-
-    public int getTotalKM() {
+    int getTotalKM() {
         return totalKM;
     }
-
     public void setTotalKM(int totalKM) {
         this.totalKM = totalKM;
     }
-
-    public String getFuel() {
+    String getFuel() {
         return fuel;
     }
-
     public void setFuel(String fuel) {
         this.fuel = fuel;
     }
-
-    public String getOnderhoudsType() { return onderhoudsType;}
-
-    public void setOnderhoudsType(OnderhoudstypeEnum onderhoudstypeEnum) {
-        this.onderhoudsType = onderhoudstypeEnum.name();
-    }
+    String getOnderhoudsType() { return onderhoudsType;}
+    public void setOnderhoudsType(OnderhoudstypeEnum onderhoudstypeEnum) { this.onderhoudsType = onderhoudstypeEnum.name(); }
+    public MotorType getMotorType() { return motorType; }
+    public void setMotorType(MotorType motorType) { this.motorType = motorType; }
 }

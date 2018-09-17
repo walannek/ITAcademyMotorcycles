@@ -67,9 +67,9 @@ public class InitMotorcycles {
         motorType.setBrand(brand);
         motorType.setType(brandType);
         motor.setMotorType(motorType);
-        Integer pk = getPkFromType(motorType.getType());
-        if (pk != null) {
-            motor.setPk(pk);
+        Integer cilinderInhoud = getCilinderInhoudFromType(motorType.getType());
+        if (cilinderInhoud != null) {
+            motor.setCilinderInhoud(cilinderInhoud);
         }
         motor.setTotalKM(getRandomGetal(200000,0));
         motor.setOnderhoudsType(setRandomOnderhoudsType(getRandomGetal(3,1)));
@@ -90,17 +90,17 @@ public class InitMotorcycles {
      * @param type het type waaruit de pk zal worden gehaald
      * @return de pk uit het type
      */
-    private static Integer getPkFromType(@NotNull String type) {
-        String pk= "";
+    private static Integer getCilinderInhoudFromType(@NotNull String type) {
+        String cilinderInhoud= "";
         for (char ch : type.toCharArray()) {
             if (Character.isDigit(ch)) {
-                pk = pk + ch;
-            } else if (checkPK(pk)) {
-                return Integer.parseInt(pk);
-            } else pk = "";
+                cilinderInhoud = cilinderInhoud + ch;
+            } else if (checkCilinderInhoud(cilinderInhoud)) {
+                return Integer.parseInt(cilinderInhoud);
+            } else cilinderInhoud = "";
         }
-        if(checkPK(pk)) {
-            return Integer.parseInt(pk);
+        if(checkCilinderInhoud(cilinderInhoud)) {
+            return Integer.parseInt(cilinderInhoud);
         }
         return null;
     }
@@ -110,8 +110,8 @@ public class InitMotorcycles {
      * @param pk de te checken pk
      * @return true als deze groter is dan 49 anders false
      */
-    private static boolean checkPK(@NotNull String pk){
-        return !pk.equals("") && Integer.parseInt(pk) > 49;
+    private static boolean checkCilinderInhoud(@NotNull String cilinderInhoud){
+        return !cilinderInhoud.equals("") && Integer.parseInt(cilinderInhoud) > 49;
     }
 
     /**

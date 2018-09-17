@@ -6,6 +6,7 @@ public class Motor extends Motorvoertuig {
 
     private String colour;
     private int pk;
+    private int cilinderInhoud;
     private int totalKM;
     private String fuel;
     private MotorType motorType;
@@ -39,4 +40,6 @@ public class Motor extends Motorvoertuig {
     public void setOnderhoudsType(OnderhoudstypeEnum onderhoudstypeEnum) { this.onderhoudsType = onderhoudstypeEnum.name(); }
     public MotorType getMotorType() { return motorType; }
     public void setMotorType(MotorType motorType) { this.motorType = motorType; }
+    public int getCilinderInhoud() { return cilinderInhoud; }
+    public void setCilinderInhoud(int cilinderInhoud) { this.cilinderInhoud = cilinderInhoud; }
 }

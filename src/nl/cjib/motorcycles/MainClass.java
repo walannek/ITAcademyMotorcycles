@@ -80,12 +80,13 @@ public class MainClass {
             System.out.println(key+ " MOTOREN : " + brands.size());
             System.out.println("===========================");
             for(Motor motor : motorcycles.get(key).subList(0,brands.size())){
-                System.out.println("     type:" + motor.getMotorType().getType());
-                System.out.println("       pk:" + motor.getPk());
-                System.out.println("    color:" + motor.getColour());
-                System.out.println("     fuel:" + motor.getFuel());
-                System.out.println("  totalKM:" + motor.getTotalKM());
-                System.out.println("onderhoud:" + motor.getOnderhoudsType());
+                System.out.println("           type:" + motor.getMotorType().getType());
+                System.out.println("             pk:" + motor.getPk());
+                System.out.println("cilinder inhoud:" + motor.getCilinderInhoud());
+                System.out.println("          color:" + motor.getColour());
+                System.out.println("           fuel:" + motor.getFuel());
+                System.out.println("        totalKM:" + motor.getTotalKM());
+                System.out.println("      onderhoud:" + motor.getOnderhoudsType());
                 System.out.println();
             }
         }

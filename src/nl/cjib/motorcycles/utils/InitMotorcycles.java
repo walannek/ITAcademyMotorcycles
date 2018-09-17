@@ -8,7 +8,6 @@ import java.util.*;
 
 public class InitMotorcycles {
 
-
     /**
      * lijst met HONDA motoren met type definitie voor initieel vullen van de motoCycles ArrayList
      */
@@ -66,7 +65,6 @@ public class InitMotorcycles {
         motorType.setBrand(brand);
         motorType.setType(brandType);
         motor.setMotorType(motorType);
-        Optional<Integer> cilinderInhoud;
         if (getCilinderInhoudFromType(motorType.getType()).isPresent() ) motor.setCilinderInhoud(getCilinderInhoudFromType(motorType.getType()).get());
         motor.setTotalKM(getRandomGetal(200000,0));
         if(setRandomOnderhoudsType(getRandomGetal(3,1)).isPresent() ) motor.setOnderhoudsType(setRandomOnderhoudsType(getRandomGetal(3,1)).get());
@@ -75,7 +73,7 @@ public class InitMotorcycles {
 
     /**
      * de ArrayList motorList in de HashMap motorCycles plaatsen
-     * iedere rij van motorCycles bevat: merk en een ArrayList met motoren van dat merk
+     * iedere rij van motorCycles bevat: merk en een bijbehorende ArrayList met motoren van type {@link Motor}
      * @param motorList de samengestelde lijst motoren van een merk
      */
     private static void addBrandToMotorCycles(ArrayList<Motor> motorList){

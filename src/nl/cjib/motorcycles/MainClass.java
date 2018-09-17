@@ -10,27 +10,19 @@ public class MainClass {
     private static Map<String, ArrayList<Motor>> motorcycles;
     private static boolean exitMenu= false;
     private static final Pattern oneDigitPattern = Pattern.compile("^\\d$");
+    private static final int AANTAL_CHAR_BESCHIKBAAR = 23;
     private static String keyInput;
     private static Scanner scanner = new Scanner(System.in);
     public static void main(String... args){
 
         int selection;
-
         InitMotorcycles initMotorcycles = new InitMotorcycles();
         motorcycles = initMotorcycles.getmotorCycles();
 
         while (!exitMenu) {
-            System.out.println("============================");
-            System.out.println("|   MENU Motorcycles       |");
-            System.out.println("============================");
-            System.out.println("| Options:                 |");
-            System.out.println("|   1. Show motorcycles    |");
-            System.out.println("|   2. Add motorcycle      |");
-            System.out.println("|   3. Delete motorcycle   |");
-            System.out.println("|   4. Exit                |");
-            System.out.println("============================");
+            printMenuKop("MENU Motorcycles");
+            printMenu("Options:","1. Show motorcycles","2. Add motorcycle","3. Delete motorcycle","4. Exit");
             System.out.println("Selection: ");
-
             keyInput = scanner.next();
             if (oneDigitPattern.matcher(keyInput).matches()) {
                 selection = Integer.parseInt(keyInput);
@@ -61,24 +53,14 @@ public class MainClass {
         System.exit(0);
     }
 
-    private static void waitAMoment() {
-        Scanner scannerWait = new Scanner(System.in);
-        System.out.println("druk op een toets om verder te gaan ");
-        scannerWait.nextLine();
-    }
-
     private static void showMotorcycles(){
-        System.out.println("============================");
-        System.out.println("|   Show Motorcycles       |");
-        System.out.println("============================");
+        printMenuKop("Show Motorcycles");
         System.out.println(" Aantal merken: " + motorcycles.values().size());
         System.out.println(" Merken: " + motorcycles.keySet().toString());
 
         for(String key : motorcycles.keySet()){
             ArrayList<Motor> brands = motorcycles.get(key);
-            System.out.println("===========================");
-            System.out.println(key+ " MOTOREN : " + brands.size());
-            System.out.println("===========================");
+            printMenuKop(key+ " MOTOREN : " + brands.size());
             for(Motor motor : motorcycles.get(key).subList(0,brands.size())){
                 System.out.println("           type:" + motor.getMotorType().getType());
                 System.out.println("             pk:" + motor.getPk());
@@ -93,9 +75,7 @@ public class MainClass {
     }
 
     private static void addMotorCycle() {
-        System.out.println("============================");
-        System.out.println("|   Add Motorcycle         |");
-        System.out.println("============================");
+        printMenuKop("Add Motorcycle");
         System.out.println("voer merk in: ");
         Scanner scannerNewMotor = new Scanner(System.in);
         keyInput = scannerNewMotor.next().toUpperCase();
@@ -111,7 +91,44 @@ public class MainClass {
             System.out.println("Merk " + merk + " en type " + merkType + " is geregisteerd");
         } else {
             System.out.println("merk don't exists");
+            // TODO toevoegen van een nieuw merk motorcycle
         }
+    }
+
+    private static void waitAMoment() {
+        Scanner scannerWait = new Scanner(System.in);
+        System.out.println("druk op een toets om verder te gaan ");
+        scannerWait.nextLine();
+    }
+
+    private static void printMenuKop(String menuKop){
+        final int aantalCharBeschikbaar = 23;
+        String kop = "|   " + String.format("%-"+ AANTAL_CHAR_BESCHIKBAAR + "s",menuKop) + "|";
+        StringBuilder sb = new StringBuilder();
+        sb.append("============================")
+                .append("\n")
+                .append(kop)
+                .append("\n")
+                .append("============================");
+        System.out.println(sb);
+    }
+
+    private static void printMenu(String... options){
+        StringBuilder sb = new StringBuilder();
+        sb.append("============================");
+        sb.append("\n");
+        sb.append("|   ").append(String.format("%-" + AANTAL_CHAR_BESCHIKBAAR + "s", options[0])).append("|");
+        sb.append("\n");
+        sb.append("|   ").append(String.format("%-" + AANTAL_CHAR_BESCHIKBAAR + "s", options[1])).append("|");
+        sb.append("\n");
+        sb.append("|   ").append(String.format("%-" + AANTAL_CHAR_BESCHIKBAAR + "s", options[2])).append("|");
+        sb.append("\n");
+        sb.append("|   ").append(String.format("%-" + AANTAL_CHAR_BESCHIKBAAR + "s", options[3])).append("|");
+        sb.append("\n");
+        sb.append("|   ").append(String.format("%-" + AANTAL_CHAR_BESCHIKBAAR + "s", options[4])).append("|");
+        sb.append("\n");
+        sb.append("============================");
+        System.out.println(sb);
     }
 
     private static boolean merkStaatGeregisteerd(String invoerMerk){

@@ -66,15 +66,10 @@ public class InitMotorcycles {
         motorType.setBrand(brand);
         motorType.setType(brandType);
         motor.setMotorType(motorType);
-        Optional<Integer> cilinderInhoud = getCilinderInhoudFromType(motorType.getType());
-        if (cilinderInhoud.isPresent() ) {
-            motor.setCilinderInhoud(cilinderInhoud.get());
-        }
+        Optional<Integer> cilinderInhoud;
+        if (getCilinderInhoudFromType(motorType.getType()).isPresent() ) motor.setCilinderInhoud(getCilinderInhoudFromType(motorType.getType()).get());
         motor.setTotalKM(getRandomGetal(200000,0));
-        Optional<OnderhoudstypeEnum> onderhoudstypeEnum = setRandomOnderhoudsType(getRandomGetal(3,1));
-        if(onderhoudstypeEnum.isPresent()){
-            motor.setOnderhoudsType(onderhoudstypeEnum.get());
-        }
+        if(setRandomOnderhoudsType(getRandomGetal(3,1)).isPresent() ) motor.setOnderhoudsType(setRandomOnderhoudsType(getRandomGetal(3,1)).get());
         motorList.add(motor);
     }
 

@@ -86,9 +86,9 @@ public class InitMotorcycles {
     }
 
     /**
-     * Hier de te registreren pk's uit het type proberen te halen
+     * Hier de te registreren cilinderinhoud uit het type proberen te halen
      * @param type het type waaruit de pk zal worden gehaald
-     * @return de pk uit het type
+     * @return de cilinderinhoud uit het type
      */
     private static Integer getCilinderInhoudFromType(@NotNull String type) {
         String cilinderInhoud= "";
@@ -107,7 +107,7 @@ public class InitMotorcycles {
 
     /**
      * check of de pk een waarde bevat en deze groter is dan 49
-     * @param pk de te checken pk
+     * @param cilinderInhoud de te checken cilinderinhoud
      * @return true als deze groter is dan 49 anders false
      */
     private static boolean checkCilinderInhoud(@NotNull String cilinderInhoud){
@@ -120,9 +120,7 @@ public class InitMotorcycles {
      * @param vanaf het random gekozen getal zal nooit kleiner zijn dan deze waarde
      * @return een random getal
      */
-    private static int getRandomGetal(@NotNull int tot,@NotNull int vanaf){
-        return new Random().nextInt(tot) + vanaf;
-    }
+    private static int getRandomGetal(@NotNull int tot,@NotNull int vanaf){ return new Random().nextInt(tot) + vanaf; }
 
     /**
      * geef een onderhoudstype a.d.h.v. het random gekozen onderhoudsgetal

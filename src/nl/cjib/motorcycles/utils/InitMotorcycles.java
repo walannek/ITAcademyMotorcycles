@@ -7,10 +7,12 @@ import nl.cjib.motorcycles.MotorType;
 import java.util.*;
 
 public class InitMotorcycles {
+
+
     /**
      * lijst met HONDA motoren met type definitie voor initieel vullen van de motoCycles ArrayList
      */
-    private static final ArrayList<String> honda = new ArrayList<>(Arrays.asList("HONDA","X-ADV","CB 1000 R","CB 1100 RS","CB 250"));
+    private static final ArrayList<String> honda = new ArrayList<>(Arrays.asList("HONDA","CB 1000 R","CB 1100 RS","CB 250"));
 
     /**
      * lijst met BMW motoren met type definitie voor initieel vullen van de motoCycles ArrayList
@@ -69,7 +71,10 @@ public class InitMotorcycles {
             motor.setCilinderInhoud(cilinderInhoud.get());
         }
         motor.setTotalKM(getRandomGetal(200000,0));
-        motor.setOnderhoudsType(setRandomOnderhoudsType(getRandomGetal(3,1)));
+        Optional<OnderhoudstypeEnum> onderhoudstypeEnum = setRandomOnderhoudsType(getRandomGetal(3,1));
+        if(onderhoudstypeEnum.isPresent()){
+            motor.setOnderhoudsType(onderhoudstypeEnum.get());
+        }
         motorList.add(motor);
     }
 
@@ -124,16 +129,16 @@ public class InitMotorcycles {
      * @param onderhoudsGetal getal voor het random vullen van het onderhoudstype
      * @return een onderhoudsEnum op basis van een random gekozen onderhoudsgetal
      */
-    private static OnderhoudstypeEnum setRandomOnderhoudsType(@NotNull int onderhoudsGetal){
+    private static Optional<OnderhoudstypeEnum> setRandomOnderhoudsType(@NotNull int onderhoudsGetal){
         switch(onderhoudsGetal){
             case 1:
-                return OnderhoudstypeEnum.APK;
+                return Optional.of(OnderhoudstypeEnum.APK);
             case 2:
-                return OnderhoudstypeEnum.GROTE_BEURT;
+                return Optional.of(OnderhoudstypeEnum.GROTE_BEURT);
             case 3:
-                return OnderhoudstypeEnum.KLEINE_BEURT;
+                return Optional.of(OnderhoudstypeEnum.KLEINE_BEURT);
              default:
-                 return null;
+                 return Optional.empty();
         }
     }
 

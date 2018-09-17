@@ -4,10 +4,7 @@ import com.sun.istack.internal.NotNull;
 import nl.cjib.motorcycles.Motor;
 import nl.cjib.motorcycles.MotorType;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.*;
 
 public class InitMotorcycles {
     /**
@@ -67,9 +64,9 @@ public class InitMotorcycles {
         motorType.setBrand(brand);
         motorType.setType(brandType);
         motor.setMotorType(motorType);
-        Integer cilinderInhoud = getCilinderInhoudFromType(motorType.getType());
-        if (cilinderInhoud != null) {
-            motor.setCilinderInhoud(cilinderInhoud);
+        Optional<Integer> cilinderInhoud = getCilinderInhoudFromType(motorType.getType());
+        if (cilinderInhoud.isPresent() ) {
+            motor.setCilinderInhoud(cilinderInhoud.get());
         }
         motor.setTotalKM(getRandomGetal(200000,0));
         motor.setOnderhoudsType(setRandomOnderhoudsType(getRandomGetal(3,1)));
@@ -90,19 +87,19 @@ public class InitMotorcycles {
      * @param type het type waaruit de pk zal worden gehaald
      * @return de cilinderinhoud uit het type
      */
-    private static Integer getCilinderInhoudFromType(@NotNull String type) {
+    private static Optional<Integer> getCilinderInhoudFromType(@NotNull String type) {
         String cilinderInhoud= "";
         for (char ch : type.toCharArray()) {
             if (Character.isDigit(ch)) {
                 cilinderInhoud = cilinderInhoud + ch;
             } else if (checkCilinderInhoud(cilinderInhoud)) {
-                return Integer.parseInt(cilinderInhoud);
+                return Optional.of(Integer.parseInt(cilinderInhoud));
             } else cilinderInhoud = "";
         }
         if(checkCilinderInhoud(cilinderInhoud)) {
-            return Integer.parseInt(cilinderInhoud);
+            return Optional.of(Integer.parseInt(cilinderInhoud));
         }
-        return null;
+        return Optional.empty();
     }
 
     /**

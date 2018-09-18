@@ -104,11 +104,9 @@ public class MainClass {
 
     private static void printMenu(String... options){
         StringBuilder sb = new StringBuilder();
-        sb.append("============================");
-        sb.append("\n");
+        sb.append("============================").append("\n");
         for(String menuItem : options) {
-            sb.append("|   ").append(String.format("%-" + AANTAL_CHAR_BESCHIKBAAR + "s", menuItem)).append("|");
-            sb.append("\n");
+            sb.append("|   ").append(String.format("%-" + AANTAL_CHAR_BESCHIKBAAR + "s", menuItem)).append("|").append("\n");
         }
         sb.append("============================");
         System.out.println(sb);

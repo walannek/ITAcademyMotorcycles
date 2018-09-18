@@ -1,6 +1,6 @@
 package nl.cjib.motorcycles;
 
-public class Vervoermiddel {
+public abstract class Vervoermiddel {
     private int aantalWielen;
     private int tellerStand;
     private String kenteken;
@@ -12,6 +12,8 @@ public class Vervoermiddel {
     private boolean gemotoriseerd;
     private boolean brandstof;
     private String motorisering;
+
+    abstract void rijden();
 
     public int getAantalWielen() { return aantalWielen; }
     public void setAantalWielen(int aantalWielen) { this.aantalWielen = aantalWielen; }

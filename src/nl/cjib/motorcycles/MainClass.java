@@ -20,7 +20,6 @@ public class MainClass {
         motorcycles = initMotorcycles.getmotorCycles();
 
         while (!exitMenu) {
-            //printMenuKop("MENU Motorcycles");
             printMenu("MENU Motorcycles");
             printMenu("Options:","1. Show motorcycles","2. Add motorcycle","3. Delete motorcycle","4. Exit");
             System.out.println("Selection: ");

@@ -11,10 +11,12 @@ public class Motor extends Vervoermiddel {
     private String fuel;
     private MotorType motorType;
     private String onderhoudsType;
+    private boolean zijspan;
 
     String getColour() {
         return this.colour;
     }
+
     public void setColour (String colour) {
         this.colour = colour;
     }
@@ -42,4 +44,11 @@ public class Motor extends Vervoermiddel {
     public void setMotorType(MotorType motorType) { this.motorType = motorType; }
     public int getCilinderInhoud() { return cilinderInhoud; }
     public void setCilinderInhoud(int cilinderInhoud) { this.cilinderInhoud = cilinderInhoud; }
+    public boolean isZijspan() { return zijspan; }
+    public void setZijspan(boolean zijspan) { this.zijspan = zijspan; }
+
+    @Override
+    void rijden() {
+
+    }
 }

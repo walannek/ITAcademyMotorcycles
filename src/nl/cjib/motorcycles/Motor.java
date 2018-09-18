@@ -2,7 +2,7 @@ package nl.cjib.motorcycles;
 
 import nl.cjib.motorcycles.utils.OnderhoudstypeEnum;
 
-public class Motor extends Motorvoertuig {
+public class Motor extends Vervoermiddel {
 
     private String colour;
     private int pk;

@@ -20,7 +20,8 @@ public class MainClass {
         motorcycles = initMotorcycles.getmotorCycles();
 
         while (!exitMenu) {
-            printMenuKop("MENU Motorcycles");
+            //printMenuKop("MENU Motorcycles");
+            printMenu("MENU Motorcycles");
             printMenu("Options:","1. Show motorcycles","2. Add motorcycle","3. Delete motorcycle","4. Exit");
             System.out.println("Selection: ");
             keyInput = scanner.next();
@@ -54,13 +55,13 @@ public class MainClass {
     }
 
     private static void showMotorcycles(){
-        printMenuKop("Show Motorcycles");
+        printMenu("Show Motorcycles");
         System.out.println(" Aantal merken: " + motorcycles.values().size());
         System.out.println(" Merken: " + motorcycles.keySet().toString());
 
         for(String key : motorcycles.keySet()){
             ArrayList<Motor> brands = motorcycles.get(key);
-            printMenuKop(key+ " MOTOREN : " + brands.size());
+            printMenu(key+ " MOTOREN : " + brands.size());
             for(Motor motor : motorcycles.get(key).subList(0,brands.size())){
                 System.out.println("           type:" + motor.getMotorType().getType());
                 System.out.println("             pk:" + motor.getPk());
@@ -75,7 +76,7 @@ public class MainClass {
     }
 
     private static void addMotorCycle() {
-        printMenuKop("Add Motorcycle");
+        printMenu("Add Motorcycle");
         System.out.println("voer merk in: ");
         Scanner scannerNewMotor = new Scanner(System.in);
         keyInput = scannerNewMotor.next().toUpperCase();
@@ -101,32 +102,14 @@ public class MainClass {
         scannerWait.nextLine();
     }
 
-    private static void printMenuKop(String menuKop){
-        final int aantalCharBeschikbaar = 23;
-        String kop = "|   " + String.format("%-"+ AANTAL_CHAR_BESCHIKBAAR + "s",menuKop) + "|";
-        StringBuilder sb = new StringBuilder();
-        sb.append("============================")
-                .append("\n")
-                .append(kop)
-                .append("\n")
-                .append("============================");
-        System.out.println(sb);
-    }
-
     private static void printMenu(String... options){
         StringBuilder sb = new StringBuilder();
         sb.append("============================");
         sb.append("\n");
-        sb.append("|   ").append(String.format("%-" + AANTAL_CHAR_BESCHIKBAAR + "s", options[0])).append("|");
-        sb.append("\n");
-        sb.append("|   ").append(String.format("%-" + AANTAL_CHAR_BESCHIKBAAR + "s", options[1])).append("|");
-        sb.append("\n");
-        sb.append("|   ").append(String.format("%-" + AANTAL_CHAR_BESCHIKBAAR + "s", options[2])).append("|");
-        sb.append("\n");
-        sb.append("|   ").append(String.format("%-" + AANTAL_CHAR_BESCHIKBAAR + "s", options[3])).append("|");
-        sb.append("\n");
-        sb.append("|   ").append(String.format("%-" + AANTAL_CHAR_BESCHIKBAAR + "s", options[4])).append("|");
-        sb.append("\n");
+        for(String menuItem : options) {
+            sb.append("|   ").append(String.format("%-" + AANTAL_CHAR_BESCHIKBAAR + "s", menuItem)).append("|");
+            sb.append("\n");
+        }
         sb.append("============================");
         System.out.println(sb);
     }

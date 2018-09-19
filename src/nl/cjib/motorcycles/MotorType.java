@@ -9,9 +9,7 @@ public class MotorType {
     public void setType(String type){
         this.type = type;
     }
-    public String getType (){
-        return type;
-    }
+    public String getType (){ return type; }
     public void setBrand(String brand){
         this.brand = brand;
     }

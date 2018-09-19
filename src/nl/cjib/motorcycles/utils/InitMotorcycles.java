@@ -3,8 +3,11 @@ package nl.cjib.motorcycles.utils;
 import com.sun.istack.internal.NotNull;
 import nl.cjib.motorcycles.Motor;
 import nl.cjib.motorcycles.MotorType;
+import nl.cjib.motorcycles.OnderhoudsStatus;
 
 import java.util.*;
+
+import static nl.cjib.motorcycles.utils.Utils.getRandomGetal;
 
 public class InitMotorcycles {
 
@@ -22,6 +25,7 @@ public class InitMotorcycles {
      * Hierin komen alle merken motoren te staan met bijbehorende typen
      */
     private static HashMap<String, ArrayList<Motor>> motorCycles = new HashMap<>();
+    //private Random random;
 
     static {
         getAllBrandsAndTypen();
@@ -66,8 +70,12 @@ public class InitMotorcycles {
         motorType.setType(brandType);
         motor.setMotorType(motorType);
         if (getCilinderInhoudFromType(motorType.getType()).isPresent() ) motor.setCilinderInhoud(getCilinderInhoudFromType(motorType.getType()).get());
-        motor.setTotalKM(getRandomGetal(200000,0));
-        if(setRandomOnderhoudsType(getRandomGetal(3,1)).isPresent() ) motor.setOnderhoudsType(setRandomOnderhoudsType(getRandomGetal(3,1)).get());
+        motor.setColour("geen kleur");
+        motor.setFuel(getRandomGetal(1,12));
+        motor.setTotalKM(getRandomGetal(0,200000));
+        Calendar onderhoudsDatum = Calendar.getInstance();
+        onderhoudsDatum.set(getRandomGetal(2016,2019),getRandomGetal(1,12),getRandomGetal(1,30));
+        if(setRandomOnderhoudsType(getRandomGetal(1,3)).isPresent()) motor.setOnderhoudsStatus(new OnderhoudsStatus(setRandomOnderhoudsType(getRandomGetal(1, 3)).get(), onderhoudsDatum.getTime()));
         motorList.add(motor);
     }
 
@@ -110,20 +118,12 @@ public class InitMotorcycles {
     }
 
     /**
-     * haal een random getal waarbij geldt dat deze >= getal en <= tot
-     * @param tot het random gekozen getal zal nooit groter zijn dan deze waarde
-     * @param vanaf het random gekozen getal zal nooit kleiner zijn dan deze waarde
-     * @return een random getal
-     */
-    private static int getRandomGetal(@NotNull int tot,@NotNull int vanaf){ return new Random().nextInt(tot) + vanaf; }
-
-    /**
      * geef een onderhoudstype a.d.h.v. het random gekozen onderhoudsgetal
-     * @param onderhoudsGetal getal voor het random vullen van het onderhoudstype
+     * @param onderhoudsgetal getal voor het random vullen van het onderhoudstype
      * @return een onderhoudsEnum op basis van een random gekozen onderhoudsgetal
      */
-    private static Optional<OnderhoudstypeEnum> setRandomOnderhoudsType(@NotNull int onderhoudsGetal){
-        switch(onderhoudsGetal){
+    private static Optional<OnderhoudstypeEnum> setRandomOnderhoudsType(@NotNull int onderhoudsgetal){
+        switch(onderhoudsgetal){
             case 1:
                 return Optional.of(OnderhoudstypeEnum.APK);
             case 2:

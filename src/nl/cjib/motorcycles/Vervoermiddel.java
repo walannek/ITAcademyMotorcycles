@@ -10,7 +10,6 @@ public abstract class Vervoermiddel {
     private String merkType;
     private long eigenGewicht;
     private boolean gemotoriseerd;
-    private boolean brandstof;
     private String motorisering;
 
     abstract void rijden();
@@ -33,9 +32,6 @@ public abstract class Vervoermiddel {
     public void setEigenGewicht(long eigenGewicht) { this.eigenGewicht = eigenGewicht; }
     public boolean isGemotoriseerd() { return gemotoriseerd; }
     public void setGemotoriseerd(boolean gemotoriseerd) { this.gemotoriseerd = gemotoriseerd; }
-    public boolean isBrandstof() { return brandstof; }
-    public void setBrandstof(boolean brandstof) { this.brandstof = brandstof; }
     public String getMotorisering() { return motorisering; }
     public void setMotorisering(String motorisering) { this.motorisering = motorisering; }
-
 }

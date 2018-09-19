@@ -1,17 +1,16 @@
 package nl.cjib.motorcycles;
 
-import nl.cjib.motorcycles.utils.OnderhoudstypeEnum;
-
-public class Motor extends Vervoermiddel {
+public class Motor extends Vervoermiddel implements Fillable {
 
     private String colour;
     private int pk;
     private int cilinderInhoud;
     private int totalKM;
-    private String fuel;
+    private int fuel;
     private MotorType motorType;
-    private String onderhoudsType;
     private boolean zijspan;
+    private OnderhoudsStatus onderhoudsStatus;
+    private boolean engineIsOnOff;
 
     String getColour() {
         return this.colour;
@@ -23,32 +22,46 @@ public class Motor extends Vervoermiddel {
     int getPk() {
         return this.pk;
     }
-    public void setPk (int pk) {
-        this.pk = pk;
-    }
+    public void setPk (int pk) { this.pk = pk; }
     int getTotalKM() {
         return totalKM;
     }
     public void setTotalKM(int totalKM) {
         this.totalKM = totalKM;
     }
-    String getFuel() {
+    int getFuel() {
         return fuel;
     }
-    public void setFuel(String fuel) {
+    public void setFuel(int fuel) {
         this.fuel = fuel;
     }
-    String getOnderhoudsType() { return onderhoudsType;}
-    public void setOnderhoudsType(OnderhoudstypeEnum onderhoudstypeEnum) { this.onderhoudsType = onderhoudstypeEnum.name(); }
     public MotorType getMotorType() { return motorType; }
     public void setMotorType(MotorType motorType) { this.motorType = motorType; }
-    public int getCilinderInhoud() { return cilinderInhoud; }
+    int getCilinderInhoud() { return cilinderInhoud; }
     public void setCilinderInhoud(int cilinderInhoud) { this.cilinderInhoud = cilinderInhoud; }
     public boolean isZijspan() { return zijspan; }
     public void setZijspan(boolean zijspan) { this.zijspan = zijspan; }
+    OnderhoudsStatus getOnderhoudsStatus() { return onderhoudsStatus; }
+    public void setOnderhoudsStatus(OnderhoudsStatus onderhoudsStatus) { this.onderhoudsStatus = onderhoudsStatus; }
+    private boolean getEngineIsOnOff() { return engineIsOnOff; }
+    private void setEngineIsOnOff(boolean engineIsOnOff) { this.engineIsOnOff = engineIsOnOff; }
 
     @Override
     void rijden() {
+         System.out.println("motor gaat rijden");
+    }
 
+    void startEngine() {
+        setEngineIsOnOff(!getEngineIsOnOff());
+        System.out.println(Boolean.TRUE.equals(getEngineIsOnOff()) ? "Engine is gestart... " : "Engine is gestopt... ");
+    }
+
+    @Override
+    public void fill(int liters) {
+        System.out.println("motor gaat tanken");
+        System.out.println("motor heeft nog " + getFuel() + " benzine");
+        setFuel(getFuel()+liters);
+        System.out.println("auto heeft " + liters + " getankt");
+        System.out.println("auto heeft nu " + getFuel() + " in de tank");
     }
 }

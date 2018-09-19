@@ -1,12 +1,15 @@
 package nl.cjib.motorcycles.utils;
 
 public enum OnderhoudstypeEnum {
-    APK,
-    GROTE_BEURT,
-    KLEINE_BEURT;
+    APK("Apk-keuring"),
+    GROTE_BEURT("Grote beurt"),
+    KLEINE_BEURT("Kleine beurt");
 
-    private String onderhoudsType;
-    public String getOnderhoudsType() {
+    String onderhoudsType;
+    OnderhoudstypeEnum(String onderhoudsType) {
+        this.onderhoudsType = onderhoudsType;
+    }
+    public String showOnderhoud() {
         return onderhoudsType;
     }
 }

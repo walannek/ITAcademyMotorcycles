@@ -56,4 +56,9 @@ public class Auto extends Vervoermiddel{
     public void rijden() {
             System.out.println("auto gaat rijden");
     }
+
+    @Override
+    void afstand(int afstand) {
+
+    }
 }

@@ -1,4 +1,4 @@
-package nl.cjib.motorcycles.utils;
+package nl.cjib.motorcycles.Enums;
 
 public enum OnderhoudstypeEnum {
     APK("Apk-keuring"),

@@ -1,6 +1,6 @@
 package nl.cjib.motorcycles;
 
-import nl.cjib.motorcycles.utils.OnderhoudstypeEnum;
+import nl.cjib.motorcycles.Enums.OnderhoudstypeEnum;
 
 import java.util.Date;
 

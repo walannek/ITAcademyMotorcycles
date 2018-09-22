@@ -13,6 +13,7 @@ public abstract class Vervoermiddel {
     private String motorisering;
 
     abstract void rijden();
+    abstract void afstand(int afstand);
 
     public int getAantalWielen() { return aantalWielen; }
     public void setAantalWielen(int aantalWielen) { this.aantalWielen = aantalWielen; }

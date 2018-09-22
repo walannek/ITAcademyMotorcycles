@@ -8,6 +8,11 @@ public class Fiets extends Vervoermiddel{
         System.out.println("fiets gaat rijden");
     }
 
+    @Override
+    void afstand(int afstand) {
+
+    }
+
     public String getZadeltype() { return zadeltype; }
     public void setZadeltype(String zadeltype) { this.zadeltype = zadeltype; }
 }

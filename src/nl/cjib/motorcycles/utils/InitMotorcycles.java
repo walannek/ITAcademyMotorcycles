@@ -1,31 +1,30 @@
 package nl.cjib.motorcycles.utils;
 
 import com.sun.istack.internal.NotNull;
+import nl.cjib.motorcycles.Enums.OnderhoudstypeEnum;
 import nl.cjib.motorcycles.Motor;
 import nl.cjib.motorcycles.MotorType;
 import nl.cjib.motorcycles.OnderhoudsStatus;
 
 import java.util.*;
 
-import static nl.cjib.motorcycles.utils.Utils.getRandomGetal;
+import static nl.cjib.motorcycles.utils.NumbersUtil.getRandomGetal;
 
 public class InitMotorcycles {
-
     /**
      * lijst met HONDA motoren met type definitie voor initieel vullen van de motoCycles ArrayList
      */
-    private static final ArrayList<String> honda = new ArrayList<>(Arrays.asList("HONDA","CB 1000 R","CB 1100 RS","CB 250"));
+    private static final List<String> honda = new ArrayList<>(Arrays.asList("HONDA","CB 1000 R","CB 1100 RS","CB 250","CB 1100 SF X-11","CB 1100","CB 300 R","CB 300 F","CB 450"));
 
     /**
      * lijst met BMW motoren met type definitie voor initieel vullen van de motoCycles ArrayList
      */
-    private static final ArrayList<String> bmw = new ArrayList<>(Arrays.asList("BMW","C 600 SPORT","C 650 GT"));
+    private static final List<String> bmw = new ArrayList<>(Arrays.asList("BMW","C 600 SPORT","C 650 GT","C 650 SPORT","C EVOLUTION","F 650 CS SCARVER","F 650 GS","F 650"));
 
     /**
      * Hierin komen alle merken motoren te staan met bijbehorende typen
      */
-    private static HashMap<String, ArrayList<Motor>> motorCycles = new HashMap<>();
-    //private Random random;
+    private static HashMap<String, List<Motor>> motorCycles = new HashMap<>();
 
     static {
         getAllBrandsAndTypen();
@@ -35,11 +34,11 @@ public class InitMotorcycles {
      * methode om de HashMap motorCycles te vullen met alle initieele merken met typen
      */
     private static void getAllBrandsAndTypen(){
-        ArrayList<ArrayList<String>> initListOfMotorCycles = new ArrayList<>();
-        ArrayList<Motor> motorList;
+        List<List<String>> initListOfMotorCycles = new ArrayList<>();
+        List<Motor> motorList;
         addBrandsAndTypen(initListOfMotorCycles);
 
-        for(ArrayList brand : initListOfMotorCycles){
+        for(List brand : initListOfMotorCycles){
             motorList = new ArrayList<>();
             for(int i =1;i< brand.size();i++){
                 addMotorenToBrand(motorList, brand.get(0).toString(),brand.get(i).toString());
@@ -52,7 +51,7 @@ public class InitMotorcycles {
      * tijdelijke ArrayList initListOfMotorCycles vullen met de voorgedefinieerde lijsten van ieder merk
      * @param initListOfMotorCycles de tijdelijke ArrayList initListOfMotorCycles
      */
-    private static void addBrandsAndTypen(ArrayList<ArrayList<String>> initListOfMotorCycles) {
+    private static void addBrandsAndTypen(List<List<String>> initListOfMotorCycles) {
         initListOfMotorCycles.add(bmw);
         initListOfMotorCycles.add(honda);
     }
@@ -63,14 +62,16 @@ public class InitMotorcycles {
      * @param brand het merk die van toepassing is
      * @param brandType het type die van toepssing is
      */
-    public static void addMotorenToBrand(ArrayList<Motor> motorList, String brand, String brandType) {
+    public static void addMotorenToBrand(List<Motor> motorList, String brand, String brandType) {
         Motor motor = new Motor();
         MotorType motorType = new MotorType();
         motorType.setBrand(brand);
         motorType.setType(brandType);
         motor.setMotorType(motorType);
-        if (getCilinderInhoudFromType(motorType.getType()).isPresent() ) motor.setCilinderInhoud(getCilinderInhoudFromType(motorType.getType()).get());
+        if (getCilinderInhoudFromType(motorType.getType()).isPresent() )
+            motor.setCilinderInhoud(getCilinderInhoudFromType(motorType.getType()).get());
         motor.setColour("geen kleur");
+        motor.setPk(getRandomGetal(80,125));
         motor.setFuel(getRandomGetal(1,12));
         motor.setTotalKM(getRandomGetal(0,200000));
         Calendar onderhoudsDatum = Calendar.getInstance();
@@ -84,7 +85,7 @@ public class InitMotorcycles {
      * iedere rij van motorCycles bevat: merk en een bijbehorende ArrayList met motoren van type {@link Motor}
      * @param motorList de samengestelde lijst motoren van een merk
      */
-    private static void addBrandToMotorCycles(ArrayList<Motor> motorList){
+    private static void addBrandToMotorCycles(List<Motor> motorList){
         motorCycles.put(motorList.get(0).getMotorType().getBrand(),motorList);
     }
 
@@ -134,6 +135,5 @@ public class InitMotorcycles {
                  return Optional.empty();
         }
     }
-
-    public HashMap<String,ArrayList<Motor>> getmotorCycles() { return motorCycles; }
+    public HashMap<String,List<Motor>> getmotorCycles() { return motorCycles; }
 }

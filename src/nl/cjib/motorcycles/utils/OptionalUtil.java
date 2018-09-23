@@ -6,9 +6,10 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class OptionalUtil {
+class OptionalUtil {
     /**
      * zorgt ervoor, dat er bij een collector ook 1 result wordt teruggegeven
+     *
      * @param <T> bevat de te controleren Collector
      * @return 1 resultaat
      */

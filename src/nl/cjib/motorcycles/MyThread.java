@@ -1,29 +1,25 @@
 package nl.cjib.motorcycles;
 
-import static nl.cjib.motorcycles.MainClass.*;
+import static nl.cjib.motorcycles.MainClass.gaRijden;
 
 class MyThread implements Runnable {
 
-    private String name;
-    private Thread t;
+    private final String name;
 
-    MyThread(String threadname){
+    MyThread(String threadname) {
         name = threadname;
-        t = new Thread(this, name);
+        Thread t = new Thread(this, name);
+        System.out.println("Teamlid: " + name + " is toegevoegd");
         t.start();
     }
-
+    @Override
     public void run() {
 
         try {
-            System.out.println(name);
             gaRijden();
-            Thread.sleep(100);
-        }
-        catch (InterruptedException e) {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
             System.out.println(name + "Interrupted");
         }
-
-        System.out.println(name + " exiting.");
     }
 }

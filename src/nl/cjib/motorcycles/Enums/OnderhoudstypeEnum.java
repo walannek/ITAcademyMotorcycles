@@ -5,10 +5,12 @@ public enum OnderhoudstypeEnum {
     GROTE_BEURT("Grote beurt"),
     KLEINE_BEURT("Kleine beurt");
 
-    String onderhoudsType;
+    final String onderhoudsType;
+
     OnderhoudstypeEnum(String onderhoudsType) {
         this.onderhoudsType = onderhoudsType;
     }
+
     public String showOnderhoud() {
         return onderhoudsType;
     }

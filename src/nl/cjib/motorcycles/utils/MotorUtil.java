@@ -1,50 +1,73 @@
 package nl.cjib.motorcycles.utils;
 
 import nl.cjib.motorcycles.Motor;
+import nl.cjib.motorcycles.MotorType;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static nl.cjib.motorcycles.MainClass.getMotorcycles;
+import static nl.cjib.motorcycles.MainClass.getSelectedMotorTypen;
 import static nl.cjib.motorcycles.utils.NumbersUtil.getRandomGetal;
 
 public class MotorUtil {
-    public static Motor getRandomMotorTypeFromMerk(String merk,String excludedType){
+    public synchronized  static Motor getRandomMotorTypeFromMerk(String merk) {
+        Motor m;
         Map<String, List<Motor>> motorcycles = getMotorcycles();
-        for(String key : motorcycles.keySet()){
-            if (key.equals(merk)) {
-                int indexRandomType = getRandomGetal(0,motorcycles.get(key).size()-1);
-                int sizeTypen = motorcycles.get(key).size();
-                if(excludedType.equals(motorcycles.get(key).get(indexRandomType).toString())){
-                    if(indexRandomType+1<sizeTypen){
-                        return motorcycles.get(key).get(indexRandomType+1);
-                    }else if(indexRandomType+1==sizeTypen){
-                        return motorcycles.get(key).get(indexRandomType-1);
-                    }else{
-                        return motorcycles.get(key).get(indexRandomType);
-                    }
-                }else{
-                    return motorcycles.get(key).get(indexRandomType);
-                }
-            }
-        }
-        return null;
-    }
-    public static Motor getRandomMotorTypeFromMerk(String merk){
-        Map<String, List<Motor>> motorcycles = getMotorcycles();
-        for(String key : motorcycles.keySet()){
-            if (key.equals(merk)) {
-                return motorcycles.get(key).get(getRandomGetal(0,motorcycles.get(key).size()-1));
+        for (String key : motorcycles.keySet()) {
+            SelectRandomTypeFromMerk selectRandomTypeFromMerk = new SelectRandomTypeFromMerk(merk, motorcycles, key).invoke();
+            if (selectRandomTypeFromMerk.is()) {
+                 return motorcycles.get(key).get(selectRandomTypeFromMerk.getIndexRandomType());
             }
         }
         return null;
     }
 
-    public static String getRandomMotorMerk(){
+    private static boolean isSelectedInExcluded(MotorType selected,List<MotorType> excluded){
+        return excluded.contains(selected);
+    }
+
+    public static String getRandomMotorMerk() {
         Map<String, List<Motor>> motorcycles = getMotorcycles();
         List<String> merken = new ArrayList<>(motorcycles.keySet());
-        return merken.get(getRandomGetal(0,merken.size()-1));
+        return merken.get(getRandomGetal(0, merken.size() - 1));
+    }
+
+    private static class SelectRandomTypeFromMerk {
+        private boolean myResult;
+        private final String merk;
+        private final Map<String, List<Motor>> motorcycles;
+        private final String key;
+        private int indexRandomType;
+
+        SelectRandomTypeFromMerk(String merk, Map<String, List<Motor>> motorcycles, String key) {
+            this.merk = merk;
+            this.motorcycles = motorcycles;
+            this.key = key;
+        }
+
+        boolean is() {
+            return myResult;
+        }
+
+        int getIndexRandomType() {
+            return indexRandomType;
+        }
+
+        SelectRandomTypeFromMerk invoke() {
+            if (key.equals(merk)) {
+                MotorType selectedMotorType;
+                indexRandomType = 0;
+                do{
+                    indexRandomType = getRandomGetal(0, motorcycles.get(key).size() - 1);
+                    selectedMotorType = motorcycles.get(key).get(indexRandomType).getMotorType();
+                }while (isSelectedInExcluded(selectedMotorType,getSelectedMotorTypen()));
+                myResult = true;
+                return this;
+            }
+            myResult = false;
+            return this;
+        }
     }
 }

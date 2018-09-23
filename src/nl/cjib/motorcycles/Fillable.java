@@ -1,5 +1,5 @@
 package nl.cjib.motorcycles;
 
-public interface Fillable {
+interface Fillable {
     void fill(int liters);
 }

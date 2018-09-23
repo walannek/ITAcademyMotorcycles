@@ -7,25 +7,27 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 import static nl.cjib.motorcycles.utils.MotorUtil.*;
-import static nl.cjib.motorcycles.utils.MotorUtil.getRandomMotorMerk;
 import static nl.cjib.motorcycles.utils.NumbersUtil.getRandomGetal;
 
 public class MainClass {
+    private static final List<String> teamleden = Arrays.asList("Anneke","Frank","Rense","Gerben");
     private static Map<String, List<Motor>> motorcycles;
+    private static List<MotorType> selectedMotorTypen;
     private static boolean exitMenu= false;
     private static final Pattern oneDigitPattern = Pattern.compile("^\\d$");
     private static final int AANTAL_CHAR_BESCHIKBAAR_STANDAARD = 23;
     private static final int AANTAL_CHAR_BESCHIKBAAR_SHOW_MOTOR = 30;
-    private static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
     private static String keyInput;
     private static boolean hasWinner;
-    private static String winnerName;
+    private static List<String> winnerNames;
     private static String motorType;
-    private static Scanner scanner = new Scanner(System.in);
-    public static void main(String... args){
+    private static final Scanner scanner = new Scanner(System.in);
+    public static void main(String... args) throws InterruptedException {
         int selection;
         motorcycles = new InitMotorcycles().getmotorCycles();
-
+        selectedMotorTypen = new ArrayList<>();
+        winnerNames = new ArrayList<>();
         while (!exitMenu) {
             printLijst(AANTAL_CHAR_BESCHIKBAAR_STANDAARD
                     ,"MENU Motorcycles");
@@ -34,7 +36,7 @@ public class MainClass {
                     ,"1. Show motorcycles"
                     ,"2. Add motorcycle"
                     ,"3. Ga rijden"
-                    ,"4. Ga rijden(threading)"
+                    ,"4. CJIB-team(threading)"
                     ,"5. Delete motorcycle"
                     ,"6. Exit");
             System.out.println("Selection: ");
@@ -76,33 +78,40 @@ public class MainClass {
         System.exit(0);
     }
 
-    private static void rijden(){
+    private synchronized static void rijden(){
         setHasWinner(false);
-        setMotorType("");
-        new MyThread("Gerben");
-        new MyThread("Rense");
+        setMotorType();
+        selectedMotorTypen.clear();
+        winnerNames.clear();
+        new MyThread(teamleden.get(0));
+        new MyThread(teamleden.get(1));
+        new MyThread(teamleden.get(2));
+        new MyThread(teamleden.get(3));
         try {
-            Thread.sleep(10000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             System.out.println("Main thread Interrupted");
         }
-        System.out.println("Main thread exiting.");
-        System.out.println("WINNER=" + getWinnerName());
+        System.out.println("Main thread exiting....");
+        System.out.println();
+        System.out.println("UITSLAG:");
+        for(int i=0; i<=3;i++)
+        {
+            System.out.println(i == 0 ? + (i+1) + "e plaats en winnaar: " + getWinnerNames().get(i) : + (i+1) + "e plaats: " + getWinnerNames().get(i));
+        }
+        System.out.println();
     }
 
-    static void gaRijden(){
+    static void gaRijden() throws InterruptedException {
         Motor zoekMotor;
-        if (getMotorType().equals(""))
-            zoekMotor = getRandomMotorTypeFromMerk(getRandomMotorMerk());
-        else zoekMotor = getRandomMotorTypeFromMerk(getRandomMotorMerk(), getMotorType());
-
-        assert zoekMotor != null;
-        zoekMotor.setBrandstofVerbruik(1,getRandomGetal(1,10));
+        zoekMotor = getRandomMotorTypeFromMerk(getRandomMotorMerk());
+        selectedMotorTypen.add(Objects.requireNonNull(zoekMotor).getMotorType());
+        zoekMotor.setBrandstofVerbruik(getRandomGetal(1,10));
         System.out.println(zoekMotor.getThreadName() + " is op op een motor gestapt van het merk " + zoekMotor.getMotorType().getBrand()
                 + " en type " + zoekMotor.getMotorType().getType());
         zoekMotor.afstand(getRandomGetal(100,1000));
         zoekMotor.startEngine();
-        System.out.println(zoekMotor.getThreadName()+ zoekMotor.getMotorAndType() + " gaat rijden");
+        System.out.println(zoekMotor.getThreadName()+ zoekMotor.getTekstMotorAndType() + " gaat rijden");
         zoekMotor.rijden();
     }
 
@@ -153,7 +162,7 @@ public class MainClass {
 
     private static void waitAMoment() {
         Scanner scannerWait = new Scanner(System.in);
-        System.out.println("druk op een toets om verder te gaan ");
+        System.out.println("Druk op een toets om verder te gaan ");
         scannerWait.nextLine();
     }
 
@@ -171,10 +180,13 @@ public class MainClass {
 
     private static boolean merkStaatGeregisteerd(String invoerMerk){ return motorcycles.keySet().contains(keyInput); }
     public static Map<String, List<Motor>> getMotorcycles() { return motorcycles; }
-    private static String getWinnerName() { return winnerName; }
-    static void setWinnerName(String winName) { winnerName = winName; }
     static boolean isHasWinner() { return hasWinner; }
     static void setHasWinner(boolean hasWinner) { MainClass.hasWinner = hasWinner; }
     private static String getMotorType() { return motorType; }
-    private static void setMotorType(String motorType) { MainClass.motorType = motorType; }
+    private static void setMotorType() { MainClass.motorType = ""; }
+    public static List<MotorType> getSelectedMotorTypen() { return selectedMotorTypen; }
+    static List<String> getWinnerNames() { return winnerNames; }
+    public static void setSelectedMotorTypen(List<MotorType> selectedMotorTypen) { MainClass.selectedMotorTypen = selectedMotorTypen;
+
+    }
 }

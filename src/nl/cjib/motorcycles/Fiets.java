@@ -1,6 +1,6 @@
 package nl.cjib.motorcycles;
 
-public class Fiets extends Vervoermiddel{
+class Fiets extends Vervoermiddel {
     private String zadeltype;
 
     @Override
@@ -13,6 +13,11 @@ public class Fiets extends Vervoermiddel{
 
     }
 
-    public String getZadeltype() { return zadeltype; }
-    public void setZadeltype(String zadeltype) { this.zadeltype = zadeltype; }
+    public String getZadeltype() {
+        return zadeltype;
+    }
+
+    public void setZadeltype(String zadeltype) {
+        this.zadeltype = zadeltype;
+    }
 }
